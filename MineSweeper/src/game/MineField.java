@@ -16,6 +16,9 @@ public class MineField {
 	
 	
 	public MineField(int rows, int columns) {
+		if (rows > MAX_SIZE || columns > MAX_SIZE) {
+			throw new ArrayIndexOutOfBoundsException("rows and columns MAX_SIZE = " + MAX_SIZE);
+		}
 		this.rows = rows;
 		this.columns = columns;
 		this.minePositionList = new ArrayList<Point>();

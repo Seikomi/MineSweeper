@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class ChampsMinesTest {
+public class MineFieldTest {
 	private MineField champMines;
 
 	@Before
@@ -24,6 +24,31 @@ public class ChampsMinesTest {
 	public void testChampMine4_7_EstVideALaCreation() {
 		this.champMines = new MineField(4, 7);
 		assertTrue(this.champMines.isEmpty());
+	}
+	
+	@Test
+	public void testCreationChampsMineSupTailleMax_envoiExeption() {
+		boolean exceptionEnvoyer = false;
+		try {
+			this.champMines = new MineField(105, 8);
+			this.champMines = new MineField(10, 102);
+		}
+		catch  (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
+	}
+	
+	@Test
+	public void testCreationChampsMineTailleNegative_envoiExeption() {
+		boolean exceptionEnvoyer = false;
+		try {
+			this.champMines = new MineField(-6, 10);
+		}
+		catch  (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
 	}
 	
 	@Test

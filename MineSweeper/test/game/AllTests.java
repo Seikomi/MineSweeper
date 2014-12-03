@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ ChampsMinesTest.class, MineSweeperTest.class })
+@SuiteClasses({ MineFieldTest.class, MineSweeperTest.class })
 public class AllTests {
 
 }
