@@ -1,5 +1,10 @@
 package swingGUI.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
 import swingGUI.view.MineFieldView;
 import game.MineField;
 
@@ -11,21 +16,30 @@ public class MineFieldController {
 		this.mineFieldModel = mineFieldModel;
 		this.mineFieldView = mineFieldView;
 		
-		updateView();
+		this.mineFieldView.addMineFieldListener(new MineFieldListenner());
+		
 	}
 	
-	// TODO Refactoring
-	private void updateView() {
-		for (int i = 0; i < mineFieldView.getRows(); i++) {
-			for (int j = 0; j < mineFieldView.getColumns(); j++) {
-				if (mineFieldModel.hasMine(i, j)) {
-					mineFieldView.setCaseLabel(i, j, "*");
-				} else {
-					mineFieldView.setCaseLabel(i, j, String.valueOf(mineFieldModel.getMineIndicator(i, j)));
-				}
-			}	
+	public class MineFieldListenner implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			int x = Character.getNumericValue(((JButton) arg0.getSource()).getActionCommand().charAt(0));
+			int y = Character.getNumericValue(((JButton) arg0.getSource()).getActionCommand().charAt(1));
+			
+			String mineIndicatorLabel;
+			if (mineFieldModel.hasMine(x, y))
+			{
+				mineIndicatorLabel = "*";
+			} else {
+				mineIndicatorLabel = Integer.toString(mineFieldModel.getMineIndicator(x, y));
+			}
+			
+			mineFieldView.changeJButtonToJLabel(x, y, mineIndicatorLabel );
+			
 		}
+		
 	}
-	
 	
 }

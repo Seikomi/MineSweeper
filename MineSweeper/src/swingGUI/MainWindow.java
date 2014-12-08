@@ -18,7 +18,7 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		this.setTitle("MineSweeper v0.0.1");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(400, 400);
+		this.setSize(600, 600);
 		
 		this.mineFieldModel = new MineField(10, 10);
 		this.mineFieldView = new MineFieldView(10, 10);

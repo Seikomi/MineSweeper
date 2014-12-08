@@ -1,14 +1,18 @@
 package swingGUI.view;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MineFieldView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	private JLabel[][] casesJLabelTab;
+	private JComponent[][] jComponentTab;
 	
 	private final int rows;
 	private final int columns;
@@ -19,23 +23,37 @@ public class MineFieldView extends JPanel {
 		
 		this.setLayout(new GridLayout(rows, columns));
 		
-		// TODO Refactoring
-		this.casesJLabelTab = new JLabel[rows][columns];
-		for (int i = 0; i < this.casesJLabelTab.length; i++) {
-			for (int j = 0; j < this.casesJLabelTab[i].length; j++) {
-				this.casesJLabelTab[i][j] = new JLabel("");
-				this.add(this.casesJLabelTab[i][j]);
+		this.jComponentTab = new JComponent[rows][columns];
+		for (int i = 0; i < jComponentTab.length; i++) {
+			for (int j = 0; j < jComponentTab[i].length; j++) {
+				this.jComponentTab[i][j] = new JButton();
+				((JButton) this.jComponentTab[i][j]).setActionCommand("" + i + j);  //TODO Refactor for i and j > 9
+				this.add(this.jComponentTab[i][j]);
 			}
 		}
 	}
 	
-	public void setCaseLabel(int row, int column, String label) {
-		this.casesJLabelTab[row][column].setText(label);
+	public void changeJButtonToJLabel(int row, int column, String label) {
+		// TODO remove action listener and type exception
+		this.remove(row * this.columns + column);
+		this.jComponentTab[row][column] = new JLabel(label, JLabel.CENTER);
+		this.add(this.jComponentTab[row][column], row * this.columns + column);
+		
+		this.validate();
+		this.repaint();
+
 	}
 	
-	public String getCaseLabel(int row, int column) {
-		return this.casesJLabelTab[row][column].getText();
+	public void addMineFieldListener(ActionListener listenerForMineFieldButton) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if(this.jComponentTab[i][j] instanceof JButton) {
+					((JButton) this.jComponentTab[i][j]).addActionListener(listenerForMineFieldButton);;
+				}
+			}
+		}
 	}
+	
 	
 	public int getRows() {
 		return rows;
