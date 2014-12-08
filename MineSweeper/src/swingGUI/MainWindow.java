@@ -30,6 +30,12 @@ public class MainWindow extends JFrame {
 		this.mineFieldModel.mine(5, 5);
 		this.mineFieldModel.mine(7, 7);
 		this.mineFieldModel.mine(9, 9);
+		this.mineFieldModel.mine(1, 0);
+		this.mineFieldModel.mine(2, 0);
+		this.mineFieldModel.mine(4, 5);
+		this.mineFieldModel.mine(3, 5);
+		this.mineFieldModel.mine(7, 2);
+		this.mineFieldModel.mine(9, 8);
 		
 		this.mineFieldController = new MineFieldController(mineFieldModel, mineFieldView);
 		

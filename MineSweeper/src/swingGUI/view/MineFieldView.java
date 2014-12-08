@@ -34,24 +34,35 @@ public class MineFieldView extends JPanel {
 	}
 	
 	public void changeJButtonToJLabel(int row, int column, String label) {
-		// TODO remove action listener and type exception
-		this.remove(row * this.columns + column);
-		this.jComponentTab[row][column] = new JLabel(label, JLabel.CENTER);
-		this.add(this.jComponentTab[row][column], row * this.columns + column);
-		
-		this.validate();
-		this.repaint();
+		if (this.hasJButton(row, column)) {
+			this.remove(row * this.columns + column);
+			this.jComponentTab[row][column] = new JLabel(label, JLabel.CENTER);
+			this.add(this.jComponentTab[row][column], row * this.columns + column);
+			
+			this.validate();
+			this.repaint();
+		} else {
+			//TODO  exception 
+		}
 
 	}
 	
 	public void addMineFieldListener(ActionListener listenerForMineFieldButton) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				if(this.jComponentTab[i][j] instanceof JButton) {
+				if(this.hasJButton(i, j)) {
 					((JButton) this.jComponentTab[i][j]).addActionListener(listenerForMineFieldButton);;
 				}
 			}
 		}
+	}
+	
+	public boolean hasJButton(int rowIndex, int columnIndex) {
+		return this.jComponentTab[rowIndex][columnIndex] instanceof JButton;
+	}
+	
+	public boolean hasJLabel(int rowIndex, int columnIndex) {
+		return this.jComponentTab[rowIndex][columnIndex] instanceof JLabel;
 	}
 	
 	

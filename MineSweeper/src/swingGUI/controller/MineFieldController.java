@@ -20,6 +20,7 @@ public class MineFieldController {
 		
 	}
 	
+	/* TODO refactor */
 	public class MineFieldListenner implements ActionListener {
 
 		@Override
@@ -28,18 +29,51 @@ public class MineFieldController {
 			int x = Character.getNumericValue(((JButton) arg0.getSource()).getActionCommand().charAt(0));
 			int y = Character.getNumericValue(((JButton) arg0.getSource()).getActionCommand().charAt(1));
 			
-			String mineIndicatorLabel;
 			if (mineFieldModel.hasMine(x, y))
 			{
-				mineIndicatorLabel = "*";
+				mineFieldView.changeJButtonToJLabel(x, y, "*");
 			} else {
-				mineIndicatorLabel = Integer.toString(mineFieldModel.getMineIndicator(x, y));
+				int mineIndicator = mineFieldModel.getMineIndicator(x , y);
+				if (mineIndicator == 0) {
+					mineFieldView.changeJButtonToJLabel(x, y, "0");
+					exploreCaseAround(x, y);
+					
+				} else {
+					String mineIndicatorLabel = Integer.toString(mineIndicator);						
+					mineFieldView.changeJButtonToJLabel(x, y, mineIndicatorLabel );
+				}
+					
 			}
 			
-			mineFieldView.changeJButtonToJLabel(x, y, mineIndicatorLabel );
 			
 		}
 		
+		/* TODO refactor */
+		private void exploreCaseAround(int x, int y) {
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					if (i != 0 || j != 0)
+					{	
+						if ((x + i) > -1 && (y + j) > -1 && (x + i) < mineFieldModel.getRows() && (y + j) < mineFieldModel.getColumns()) {
+							int mineIndicator = mineFieldModel.getMineIndicator(x + i, y + j);
+							if (mineIndicator == 0) {
+								if (mineFieldView.hasJButton(x + i, y + j)) {
+									mineFieldView.changeJButtonToJLabel(x + i, y + j, "0");
+									exploreCaseAround(x + i, y + j);
+								}
+							} else {
+								String mineIndicatorLabel = Integer.toString(mineIndicator);						
+								mineFieldView.changeJButtonToJLabel(x + i, y + j, mineIndicatorLabel );
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
 	}
+	
+	
 	
 }
