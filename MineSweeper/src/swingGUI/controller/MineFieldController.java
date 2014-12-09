@@ -31,21 +31,7 @@ public class MineFieldController {
 			int y = Integer.parseInt(tokens[1]);
 			
 			try {
-				if (mineFieldModel.hasMine(x, y))
-				{
-					mineFieldView.changeJButtonToJLabel(x, y, "*");
-				} else {
-					int mineIndicator = mineFieldModel.getMineIndicator(x , y);
-					if (mineIndicator == 0) {
-						mineFieldView.changeJButtonToJLabel(x, y, "0");
-						exploreCaseAround(x, y);
-						
-					} else {
-						String mineIndicatorLabel = Integer.toString(mineIndicator);						
-						mineFieldView.changeJButtonToJLabel(x, y, mineIndicatorLabel );
-					}
-						
-				}
+				showCase(x, y);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -53,28 +39,45 @@ public class MineFieldController {
 			
 		}
 		
-		/* TODO refactor */
+		private void showCase(int x, int y) throws Exception {
+			if (mineFieldModel.hasMine(x, y)) {
+				mineFieldView.changeJButtonToJLabel(x, y, "*");
+			} else {
+				int mineIndicator = mineFieldModel.getMineIndicator(x , y);
+				if (mineIndicator < 0) {
+					mineFieldView.changeJButtonToJLabel(x, y, Integer.toString(mineIndicator));
+				} else {
+					mineFieldView.changeJButtonToJLabel(x, y, "0");
+					exploreCaseAround(x, y);
+				}
+			}
+		}
+		
 		private void exploreCaseAround(int x, int y) throws Exception {
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					if (i != 0 || j != 0)
+					int caseX = x + i;
+					int caseY = y + j;
+					if (caseInView(caseX, caseY) && mineFieldView.hasJButton(caseX, caseY))
 					{	
-						if ((x + i) > -1 && (y + j) > -1 && (x + i) < mineFieldModel.getRows() && (y + j) < mineFieldModel.getColumns()) {
-							int mineIndicator = mineFieldModel.getMineIndicator(x + i, y + j);
-							if (mineFieldView.hasJButton(x + i, y + j)) {
-								if (mineIndicator == 0) {
-										mineFieldView.changeJButtonToJLabel(x + i, y + j, "0");
-										exploreCaseAround(x + i, y + j);
-								} else {
-									String mineIndicatorLabel = Integer.toString(mineIndicator);						
-									mineFieldView.changeJButtonToJLabel(x + i, y + j, mineIndicatorLabel );
-								}
+						int mineIndicator = mineFieldModel.getMineIndicator(caseX, caseY);
+						if (mineFieldView.hasJButton(caseX, caseY)) {
+							if (mineIndicator == 0) {
+									mineFieldView.changeJButtonToJLabel(caseX, caseY, "0");
+									exploreCaseAround(caseX, caseY);
+							} else {
+								String mineIndicatorLabel = Integer.toString(mineIndicator);						
+								mineFieldView.changeJButtonToJLabel(caseX, caseY, mineIndicatorLabel );
 							}
 						}
 					}
 					
 				}
 			}
+		}
+		
+		private boolean caseInView(int x, int y) {
+			return x >= 0 && y >= 0 && x < mineFieldView.getRows() && y < mineFieldView.getColumns();
 		}
 		
 	}
