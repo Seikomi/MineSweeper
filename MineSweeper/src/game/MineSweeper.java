@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class MineSweeper {
 	private List<MineField> mineFieldList;
 	
+	
 	public MineSweeper(String input) throws InputMismatchException {
 		this.mineFieldList = new ArrayList<>();
 		try {
@@ -17,6 +18,7 @@ public class MineSweeper {
 			throw e;
 		}
 	}
+	
 	
 	private void executeInput(String input) throws InputMismatchException {
 		Scanner sc = new Scanner(input);
@@ -39,9 +41,11 @@ public class MineSweeper {
 		sc.close();
 	}
 
+	
 	public MineField getChampMines(int numero) {
 		return this.mineFieldList.get(numero - 1);
 	}
+
 
 	private void addMines(Scanner sc, MineField mineFieldToChange) throws InputMismatchException {
 		for(int i = 0; i < mineFieldToChange.getRows(); i++) { 
@@ -54,6 +58,7 @@ public class MineSweeper {
 		}
 	}
 
+	
 	@Override
 	public String toString() {
 		String description = "";

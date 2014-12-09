@@ -3,7 +3,6 @@ package swingGUI.view;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -17,6 +16,7 @@ public class MineFieldView extends JPanel {
 	private final int rows;
 	private final int columns;
 	
+	
 	public MineFieldView(int rows, int columns) {
 		this.rows = rows;
 		this.columns = columns;
@@ -26,6 +26,7 @@ public class MineFieldView extends JPanel {
 		initializeJComponentTabWithJButton(rows, columns);
 	}
 
+	
 	private void initializeJComponentTabWithJButton(int rows, int columns) {
 		jComponentTab = new JComponent[rows][columns];
 		for (int i = 0; i < jComponentTab.length; i++) {
@@ -37,7 +38,7 @@ public class MineFieldView extends JPanel {
 		}
 	}
 	
-	// TODO find an explicit type of exception
+	
 	public void changeJButtonToJLabel(int rowIndex, int columnIndex, String label) throws Exception {
 		if (this.hasJButton(rowIndex, columnIndex)) {
 			int positionInContainer = rowIndex * this.columns + columnIndex;
@@ -55,6 +56,7 @@ public class MineFieldView extends JPanel {
 
 	}
 	
+	
 	public void addMineFieldListener(ActionListener listenerForMineFieldButton) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
@@ -65,9 +67,11 @@ public class MineFieldView extends JPanel {
 		}
 	}
 	
+	
 	public boolean hasJButton(int rowIndex, int columnIndex) {
 		return jComponentTab[rowIndex][columnIndex] instanceof JButton;
 	}
+	
 	
 	public boolean hasJLabel(int rowIndex, int columnIndex) {
 		return jComponentTab[rowIndex][columnIndex] instanceof JLabel;
@@ -78,7 +82,9 @@ public class MineFieldView extends JPanel {
 		return rows;
 	}
 
+	
 	public int getColumns() {
 		return columns;
 	}
+	
 }

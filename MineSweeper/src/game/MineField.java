@@ -51,13 +51,13 @@ public class MineField {
 		
 		return this.mineIndicatorTab[rowIndex][columnIndex];
 	}
-
 	
+
 	public int getRows() {
 		return this.rows;
 	}
-
 	
+
 	public int getColumns() {
 		return this.columns;
 	}
