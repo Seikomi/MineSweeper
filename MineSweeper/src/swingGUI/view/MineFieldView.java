@@ -50,7 +50,7 @@ public class MineFieldView extends JPanel {
 			validate();
 			repaint();
 		} else {
-			throw new Exception("Type error");
+			throw new Exception("Object Type error : this methode attempting a JButton to the location");
 		}
 
 	}

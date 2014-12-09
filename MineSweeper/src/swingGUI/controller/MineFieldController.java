@@ -40,15 +40,19 @@ public class MineFieldController {
 		}
 		
 		private void showCase(int x, int y) throws Exception {
-			if (mineFieldModel.hasMine(x, y)) {
-				mineFieldView.changeJButtonToJLabel(x, y, "*");
-			} else {
-				int mineIndicator = mineFieldModel.getMineIndicator(x , y);
-				if (mineIndicator < 0) {
-					mineFieldView.changeJButtonToJLabel(x, y, Integer.toString(mineIndicator));
+			if (caseInView(x, y) && mineFieldView.hasJButton(x, y))
+			{
+				if (mineFieldModel.hasMine(x, y)) {
+					mineFieldView.changeJButtonToJLabel(x, y, "*");
 				} else {
-					mineFieldView.changeJButtonToJLabel(x, y, "0");
-					exploreCaseAround(x, y);
+					int mineIndicator = mineFieldModel.getMineIndicator(x , y);
+					if (mineIndicator > 0) {
+						String mineIndicatorLabel = Integer.toString(mineIndicator);
+						mineFieldView.changeJButtonToJLabel(x, y, mineIndicatorLabel);
+					} else {
+						mineFieldView.changeJButtonToJLabel(x, y, "0");
+						exploreCaseAround(x, y);
+					}
 				}
 			}
 		}
@@ -56,22 +60,7 @@ public class MineFieldController {
 		private void exploreCaseAround(int x, int y) throws Exception {
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					int caseX = x + i;
-					int caseY = y + j;
-					if (caseInView(caseX, caseY) && mineFieldView.hasJButton(caseX, caseY))
-					{	
-						int mineIndicator = mineFieldModel.getMineIndicator(caseX, caseY);
-						if (mineFieldView.hasJButton(caseX, caseY)) {
-							if (mineIndicator == 0) {
-									mineFieldView.changeJButtonToJLabel(caseX, caseY, "0");
-									exploreCaseAround(caseX, caseY);
-							} else {
-								String mineIndicatorLabel = Integer.toString(mineIndicator);						
-								mineFieldView.changeJButtonToJLabel(caseX, caseY, mineIndicatorLabel );
-							}
-						}
-					}
-					
+					showCase(x + i, y + j);
 				}
 			}
 		}
