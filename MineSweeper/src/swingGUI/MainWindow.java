@@ -1,6 +1,7 @@
 package swingGUI;
 
 import game.MineField;
+import game.RandomMineField;
 
 import javax.swing.JFrame;
 
@@ -22,22 +23,10 @@ public class MainWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(600, 600);
 		
-		this.mineFieldModel = new MineField(10, 10);
+		this.mineFieldModel = new RandomMineField(10, 10, 10);
 		this.mineFieldView = new MineFieldView(10, 10);
 		
-		// TODO Make the controller method
-		this.mineFieldModel.mine(0, 0);
-		this.mineFieldModel.mine(2, 2);
-		this.mineFieldModel.mine(4, 4);
-		this.mineFieldModel.mine(5, 5);
-		this.mineFieldModel.mine(7, 7);
-		this.mineFieldModel.mine(9, 9);
-		this.mineFieldModel.mine(1, 0);
-		this.mineFieldModel.mine(2, 0);
-		this.mineFieldModel.mine(4, 5);
-		this.mineFieldModel.mine(3, 5);
-		this.mineFieldModel.mine(7, 2);
-		this.mineFieldModel.mine(9, 8);
+		System.out.println(this.mineFieldModel);
 		
 		this.mineFieldController = new MineFieldController(mineFieldModel, mineFieldView);
 		
