@@ -2,6 +2,9 @@ package swingGUI.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -23,18 +26,31 @@ public class MineFieldController {
 	}
 	
 	
-	public class MineFieldListenner implements ActionListener {
+	public class MineFieldListenner extends MouseAdapter {
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			String[] tokens = ((JButton) arg0.getSource()).getActionCommand().split(" ");
+		public void mouseClicked(MouseEvent event) {
+			super.mouseClicked(event);
+			
+			String[] tokens = ((JButton) event.getSource()).getActionCommand().split(" ");
 			int x = Integer.parseInt(tokens[0]);
 			int y = Integer.parseInt(tokens[1]);
 			
-			try {
-				showCase(x, y);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if ((event.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
+				try {
+					showCase(x, y);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+			else if ((event.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+				if (mineFieldView.hasJButton(x, y)) {
+					if (mineFieldView.hasFlag(x, y)) {
+						mineFieldView.removeFlag(x ,y);
+					} else {
+						mineFieldView.setFlag(x ,y);
+					}
+				}
 			}
 		}
 		
