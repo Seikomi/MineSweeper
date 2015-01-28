@@ -2,6 +2,9 @@ package game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import game.MineField;
+import game.MineSweeper;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
