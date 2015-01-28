@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomMineField extends MineField {
 
-	public RandomMineField(int rows, int columns, int numberOfMine) {
+	public RandomMineField(int rows, int columns, int numberOfMine) { //TODO exception numberOfMine
 		super(rows, columns);
 		
 		generateRandomMines(numberOfMine);

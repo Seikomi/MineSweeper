@@ -13,8 +13,7 @@ public class MineSweeper {
 		this.mineFieldList = new ArrayList<>();
 		try {
 			executeInput(input);
-		} catch (InputMismatchException e) {
-			this.mineFieldList.clear();
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -56,6 +55,11 @@ public class MineSweeper {
 				}
 			}
 		}
+	}
+	
+	
+	public boolean isEmpty() {
+		return this.mineFieldList.isEmpty();
 	}
 
 	

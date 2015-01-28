@@ -1,6 +1,7 @@
 package game;
-import static org.junit.Assert.*;
-import game.MineField;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,8 +31,43 @@ public class MineFieldTest {
 	public void testCreationChampsMineSupTailleMax_envoiExeption() {
 		boolean exceptionEnvoyer = false;
 		try {
-			this.champMines = new MineField(105, 8);
-			this.champMines = new MineField(10, 102);
+			this.champMines = new MineField(105, 102);
+		}
+		catch  (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
+	}
+	
+	@Test
+	public void testCreationChampsMineSupTailleMax2_envoiExeption() {
+		boolean exceptionEnvoyer = false;
+		try {
+			this.champMines = new MineField(90, 102);
+		}
+		catch  (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
+	}
+	
+	@Test
+	public void testCreationChampsMineInfTailleMin_envoiExeption() {
+		boolean exceptionEnvoyer = false;
+		try {
+			this.champMines = new MineField(-2, 8);
+		}
+		catch  (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
+	}
+	
+	@Test
+	public void testCreationChampsMineInfTailleMin2_envoiExeption() {
+		boolean exceptionEnvoyer = false;
+		try {
+			this.champMines = new MineField(8, -8);
 		}
 		catch  (Exception e){
 			exceptionEnvoyer = true;
@@ -179,6 +215,20 @@ public class MineFieldTest {
 		assertEquals(2, this.champMines.getMineIndicator(2,1));
 		assertEquals(2, this.champMines.getMineIndicator(2,2));
 		
+	}
+	
+	@Test
+	public void testToStringMineField() {
+		this.champMines = new MineField(3,4);
+		
+		this.champMines.mine(0, 0);
+		this.champMines.mine(1, 1);
+		this.champMines.mine(2, 2);
+		
+		String expected = "* 2 1 0 \n" +
+						  "2 * 2 1 \n" +
+						  "1 2 * 1 \n";
+		assertEquals(expected, this.champMines.toString());
 	}
 	
 }

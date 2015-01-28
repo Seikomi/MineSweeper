@@ -18,6 +18,8 @@ public class MineField {
 	public MineField(int rows, int columns) {
 		if (rows > MAX_SIZE || columns > MAX_SIZE) {
 			throw new ArrayIndexOutOfBoundsException("rows and columns MAX_SIZE = " + MAX_SIZE);
+		} else if (rows <= 0 || columns <= 0) {
+			throw new ArrayIndexOutOfBoundsException("rows and columns MIN_SIZE = 1");
 		}
 		this.rows = rows;
 		this.columns = columns;

@@ -1,7 +1,6 @@
 package game;
-import static org.junit.Assert.*;
-import game.MineField;
-import game.MineSweeper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ public class MineSweeperTest {
 	
 	private ArrayList<Point> listePositionsMines;
 	private ArrayList<Point> listePositionsMines2;
+	private ArrayList<Point> listePositionsMines3;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -34,6 +34,9 @@ public class MineSweeperTest {
 		this.listePositionsMines2.add(new Point(1,0)); // . * .                
 		this.listePositionsMines2.add(new Point(1,2)); // * . *                
 		this.listePositionsMines2.add(new Point(2,1)); // . * .                           
+		
+		this.listePositionsMines3 = new ArrayList<>(); // Correspond to design:
+		this.listePositionsMines3.add(new Point(0,1)); // . * .                                        
 
 	}
 
@@ -59,6 +62,14 @@ public class MineSweeperTest {
 	}
 	
 	@Test
+	public void testChampMineVideALaCreation() {
+		String entree = "0 0";
+
+		this.jeu = new MineSweeper(entree);
+		assertEquals(true, this.jeu.isEmpty());
+	}
+	
+	@Test
 	public void testCreationPlusieurChampMine_Entree() throws Exception {
 		String entree = "4 5" + '\n' +
 						"* . . . *" + '\n' +
@@ -68,6 +79,8 @@ public class MineSweeperTest {
 						"3 3" + '\n' +
 						". * ." + '\n' +
 						"* . *" + '\n' +
+						". * ." + '\n' +
+						"1 3" + '\n' +
 						". * ." + '\n' +
 						"0 0";
 		
@@ -83,6 +96,67 @@ public class MineSweeperTest {
 		assertEquals(3, c2.getColumns());
 		testDesign(this.listePositionsMines2, c2);
 		
+		MineField c3 = this.jeu.getChampMines(3);
+		assertEquals(1, c3.getRows());
+		assertEquals(3, c3.getColumns());
+		testDesign(this.listePositionsMines3, c3);
+		
+		String expected = "Field#1:\n" +
+						  "* 3 2 2 * \n" +
+						  "* * 2 * 2 \n" +
+						  "3 3 4 3 3 \n" +
+						  "1 * 2 * * \n" +
+						  "Field#2:\n" +
+						  "2 * 2 \n" +
+						  "* 4 * \n" +
+						  "2 * 2 \n" +
+						  "Field#3:\n" +
+						  "1 * 1 \n";
+		assertEquals(expected, this.jeu.toString());
+	}
+	
+	@Test
+	public void testToStringChampMineVide_Entree() throws Exception {
+		String entree =	"0 0";
+		
+		this.jeu = new MineSweeper(entree);
+		
+		String expected = "Aucuns champs de mine";
+		assertEquals(expected, this.jeu.toString());
+	}
+	
+	@Test
+	public void testInputMismatchException_Entree() throws Exception {
+		String entree = "4 5" + '\n' +
+						"* i . . *" + '\n' +
+						"* * . * ." + '\n' +
+						". . . . ." + '\n' +
+						". * . * *" + '\n' +
+						"0 0";
+		
+		boolean exceptionEnvoyer = false;
+		try {
+			this.jeu = new MineSweeper(entree);
+		}
+		catch (Exception e){
+			exceptionEnvoyer = true;
+			assertEquals(null, this.jeu);
+		}
+		assertTrue(exceptionEnvoyer);
+	}
+	
+	@Test
+	public void testNoSuchElementException_Entree() throws Exception {
+		String entree = "4 ";
+
+		boolean exceptionEnvoyer = false;
+		try {
+			this.jeu = new MineSweeper(entree);
+		}
+		catch (Exception e){
+			exceptionEnvoyer = true;
+		}
+		assertTrue(exceptionEnvoyer);
 	}
 
 }
