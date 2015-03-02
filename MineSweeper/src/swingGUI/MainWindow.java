@@ -13,7 +13,7 @@ public class MainWindow extends JFrame {
 	
 	private MineField mineFieldModel;
 	private MineFieldView mineFieldView;
-	
+
 	@SuppressWarnings("unused")
 	private MineFieldController mineFieldController;
 	

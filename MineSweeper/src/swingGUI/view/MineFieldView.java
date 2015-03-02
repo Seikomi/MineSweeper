@@ -1,7 +1,6 @@
 package swingGUI.view;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
@@ -55,7 +54,7 @@ public class MineFieldView extends JPanel {
 			
 			validate();
 		} else {
-			throw new Exception("Object Type error : this methode attempt a JButton to the location");
+			throw new Exception("Object Type error : this methode attempt a JButton to this location");
 		}
 
 	}
@@ -106,7 +105,7 @@ public class MineFieldView extends JPanel {
 
 
 	public void removeFlag(int rowIndex, int columnIndex) {
-		((JButton) this.jComponentTab[rowIndex][columnIndex]).setText("");
+		((JButton) this.jComponentTab[rowIndex][columnIndex]).setText(null);
 		
 		this.flagsTab[rowIndex][columnIndex] = false;
 		

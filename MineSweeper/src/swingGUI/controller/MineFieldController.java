@@ -1,7 +1,7 @@
 package swingGUI.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import game.MineField;
+
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import swingGUI.view.MineFieldView;
-import game.MineField;
 
 public class MineFieldController {
 	private MineField mineFieldModel;
